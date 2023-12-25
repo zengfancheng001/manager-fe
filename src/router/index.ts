@@ -5,7 +5,7 @@ const router = createRouter({
   // 映射关系：path => component
   routes: [
     {
-      path: './',
+      path: '/',
       redirect: '/main'
     },
     {
@@ -15,6 +15,10 @@ const router = createRouter({
     {
       path: '/main',
       component: () => import('../views/main/main.vue')
+    },
+    {
+      path: '/:pathMatch(.*)',
+      component: () => import('../views/notFound/notFound.vue')
     }
   ]
 })
