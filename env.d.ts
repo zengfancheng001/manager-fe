@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
 // vue文件声明
-declare module "*.vue" {
+declare module '*.vue' {
   import { DefineComponent } from 'vue'
-  const component:DefineComponent
+  const component: DefineComponent
   export default component
 }
