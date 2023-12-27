@@ -25,7 +25,7 @@
               <span class="text">手机登录</span>
             </div>
           </template>
-          <!-- <pane-phone /> -->
+          <pane-phone />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -44,16 +44,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import {} from 'element-plus'
-// import PaneAccount from './pane-account.vue'
-// import PanePhone from './pane-phone.vue'
+import PaneAccount from './pane-account.vue'
+import PanePhone from './pane-phone.vue'
 
 const activeName = ref('account')
 const isRemPwd = ref(false)
-// const accountRef = ref<InstanceType<typeof PaneAccount>>()
+const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
 function handleLoginBtnClick() {
   if (activeName.value === 'account') {
-    // accountRef.value?.loginAction()
+    accountRef.value?.loginAction()
   } else {
     console.log('用户在进行手机登录')
   }
