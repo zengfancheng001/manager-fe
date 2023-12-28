@@ -8,8 +8,8 @@
       status-icon
       ref="formRef"
     >
-      <el-form-item label="帐号" prop="name">
-        <el-input v-model="account.name" />
+      <el-form-item label="帐号" prop="username">
+        <el-input v-model="account.username" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="account.password" show-password />
@@ -27,7 +27,7 @@ import type { IAccount } from '@/types'
 
 // 1.定义account数据
 const account = reactive<IAccount>({
-  name: '',
+  username: '',
   password: ''
 })
 
@@ -58,11 +58,11 @@ function loginAction() {
   formRef.value?.validate((valid) => {
     if (valid) {
       // 1.获取用户输入的帐号和密码
-      const name = account.name
+      const username = account.username
       const password = account.password
 
       // 2.向服务器发送网络请求(携带账号和密码)
-      loginStore.loginAccountAction({ name, password })
+      loginStore.loginAccountAction({ username, password })
     } else {
       ElMessage.error('请您输入正确的格式后再操作~~.')
     }
