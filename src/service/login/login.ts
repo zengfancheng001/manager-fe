@@ -16,7 +16,7 @@ export function getUserInfoById(id: number) {
     url: `/users/${id}`
     // headers: {
     //   Authorization: 'Bearer ' + localCache.getCache(LOGIN_TOKEN)
-    // }
+    // } 统一写在拦截器中
   })
 }
 

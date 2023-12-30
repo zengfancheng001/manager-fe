@@ -21,7 +21,10 @@ const useLoginStore = defineStore('login', {
     async loginAccountAction(account: IAccount) {
       // 1.账号登录, 获取token等信息
       const loginResult = await accountLoginRequest(account)
+      console.log(loginResult)
+
       const id = loginResult.data.id
+
       // const username = loginResult.data.username
       this.token = loginResult.data.token
 
@@ -31,11 +34,13 @@ const useLoginStore = defineStore('login', {
       // 获取登录用户的详细信息
       const userInfoResult = await getUserInfoById(id)
       // 将用户信息保存到store中
-      console.log(userInfoResult.data)
+      console.log(userInfoResult)
       this.userInfo = userInfoResult.data
 
       // 根据角色请求用户的权限（得到菜单数据）
       const userMenusResult = await getUserMenusByRoleId(this.userInfo.role.id)
+      console.log(userMenusResult)
+
       this.userMenus = userMenusResult.data
       // 页面跳转
       router.push('/main')
