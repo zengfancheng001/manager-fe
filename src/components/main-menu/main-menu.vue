@@ -1,57 +1,70 @@
 <template>
   <div class="main-menu">
+    <!-- 1.logo -->
     <div class="logo">
-      <img src="@/assets/img/logo.svg" alt="" />
-      <h2 class="title">综合后台管理系统</h2>
+      <img class="img" src="@/assets/img/logo.svg" alt="" />
+      <h2 v-show="!isFold" class="title">综合后台管理系统</h2>
     </div>
+
+    <!-- 2.menu -->
     <div class="menu">
       <el-menu
         default-active="2"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
+        :collapse="isFold"
+        text-color="#b7bdc3"
+        active-text-color="#fff"
+        background-color="#001529"
       >
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon><location /></el-icon>
-            <span>Navigator One</span>
-          </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
-            <template #title>item four</template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
+        <!-- 遍历整个菜单 -->
+        <template v-for="item in userMenus" :key="item.id">
+          <el-sub-menu :index="item.id + ''">
+            <template #title>
+              <!-- 动态组件展示图标 -->
+              <el-icon> <component :is="item.icon.split('-icon-')[1]" /> </el-icon>
+              <span>{{ item.name }}</span>
+            </template>
+
+            <template v-for="subitem in item.children" :key="subitem.id">
+              <el-menu-item :index="subitem.id + ''" @click="handleItemClick(subitem)">
+                {{ subitem.name }}
+              </el-menu-item>
+            </template>
           </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
-          <span>Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <el-icon><document /></el-icon>
-          <span>Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon><setting /></el-icon>
-          <span>Navigator Four</span>
-        </el-menu-item>
+        </template>
       </el-menu>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useLoginStore from '@/store/login/login'
+import { useRouter } from 'vue-router'
 
-<style scoped lang="less">
+// 0.定义props
+defineProps({
+  isFold: {
+    type: Boolean,
+    default: false
+  }
+})
+
+// 1.获取动态的菜单
+const loginStore = useLoginStore()
+const userMenus = loginStore.userMenus
+
+// 2.监听item的点击
+const router = useRouter()
+function handleItemClick(item: any) {
+  const url = item.url
+  router.push(url)
+}
+</script>
+<style lang="less" scoped>
 .main-menu {
   height: 100%;
   background-color: #001529;
 }
+
 .logo {
   display: flex;
   height: 28px;
@@ -60,21 +73,37 @@
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
+
+  .img {
+    height: 100%;
+    margin: 0 10px;
+  }
+
+  .title {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+  }
 }
 
-.img {
-  height: 100%;
-  margin: 0 10px;
+.el-menu {
+  border-right: none;
+  user-select: none;
 }
 
-.title {
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
-  white-space: nowrap;
-}
+.el-sub-menu {
+  .el-menu-item {
+    padding-left: 50px !important;
+    background-color: #0c2135;
+  }
 
-.menu {
-  color: wheat;
+  .el-menu-item:hover {
+    color: #fff;
+  }
+
+  .el-menu-item.is-active {
+    background-color: #0a60bd;
+  }
 }
 </style>
