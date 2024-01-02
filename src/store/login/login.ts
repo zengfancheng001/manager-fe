@@ -23,6 +23,7 @@ const useLoginStore = defineStore('login', {
       const loginResult = await accountLoginRequest(account)
       const id = loginResult.data.id
       // const username = loginResult.data.username
+
       this.token = loginResult.data.token
 
       // 2.进行本地缓存
