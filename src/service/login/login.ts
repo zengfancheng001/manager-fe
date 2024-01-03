@@ -13,7 +13,8 @@ export function accountLoginRequest(account: IAccount) {
 // 根据id发送请求用户信息详情的
 export function getUserInfoById(id: number) {
   return hyRequest.get({
-    url: `/users/${id}`
+    url: `/users/list/${id}`
+
     // headers: {
     //   Authorization: 'Bearer ' + localCache.getCache(LOGIN_TOKEN)
     // } 统一写在拦截器中

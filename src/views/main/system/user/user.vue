@@ -1,9 +1,18 @@
 <template>
   <div class="user">
-    <h2>use</h2>
+    <user-search />
+    <user-content />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import userSearch from './cpns/user-search.vue'
+import userContent from './cpns/user-content.vue'
+</script>
 
-<style scoped lang="less"></style>
+<style lang="less" scoped>
+.user {
+  border-radius: 4px;
+  overflow: hidden;
+}
+</style>
