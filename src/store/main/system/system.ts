@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { usersListData } from '@/service/main/system/system'
+import { deleteUserById, usersListData } from '@/service/main/system/system'
 import type { ISystemState } from '../type'
 
 const useSystemStore = defineStore('system', {
@@ -8,11 +8,20 @@ const useSystemStore = defineStore('system', {
     usersTotalCount: 0
   }),
   actions: {
-    async usersListAction() {
-      const userListResult = await usersListData()
-      const { totalCount, list } = await userListResult.data
+    // 获取用户列表
+    async usersListAction(queryInfo: any) {
+      const usersListResult = await usersListData(queryInfo)
+
+      const { totalCount, list } = usersListResult.data
       this.usersTotalCount = totalCount
       this.usersList = list
+    },
+    // 删除用户
+    async deleteUserByIdAction(id: number) {
+      const deleteResult = await deleteUserById(id)
+      console.log(deleteResult)
+      // 请求新的数据
+      this.usersListAction({ offset: 0, size: 10 })
     }
   }
 })
