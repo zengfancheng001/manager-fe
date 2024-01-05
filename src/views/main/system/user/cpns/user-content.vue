@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="header">
-      <h3 class="title">用户列表</h3>
+      <h2 class="title">用户列表</h2>
       <el-button type="primary" @click="handleNewUserClick">新建用户</el-button>
     </div>
     <div class="table">

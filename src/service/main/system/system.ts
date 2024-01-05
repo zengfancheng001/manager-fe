@@ -9,6 +9,14 @@ export function usersListData(queryInfo: any) {
 
 export function deleteUserById(id: number) {
   return hyRequest.delete({
-    url: `users/${id}`
+    url: `/users/${id}`
+  })
+}
+
+// 新建用户
+export function createUser(userInfo: any) {
+  return hyRequest.post({
+    url: '/users',
+    data: userInfo
   })
 }
